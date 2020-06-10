@@ -1,15 +1,24 @@
 package fuck;
 
 import java.awt.EventQueue;
-
+import java.awt.Font;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import javax.swing.JButton;
 
 public class Window {
@@ -51,10 +60,10 @@ public class Window {
     frame = new JFrame();
     frame.setBounds(100, 100, 1280, 720);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
+
     JMenuBar menuBar = new JMenuBar();
     frame.setJMenuBar(menuBar);
-    
+
     JComboBox comboBox = new JComboBox();
     menuBar.add(comboBox);
     comboBox.addItem("学生成绩查询");
@@ -65,33 +74,89 @@ public class Window {
     comboBox.addItem("添加、删除成绩");
     comboBox.addItem("修改成绩");
     comboBox.addItem("修改任课教师");
-    
-    
+
+
     txtTest_student = new JTextField();
     txtTest_student.addFocusListener(new JTextFieldHintListener(txtTest_student, "学号"));
     menuBar.add(txtTest_student);
     txtTest_student.setColumns(10);
-    
+
     textField_course = new JTextField();
     textField_course.addFocusListener(new JTextFieldHintListener(textField_course, "课程编号"));
     menuBar.add(textField_course);
     textField_course.setColumns(10);
-    
+
     textField_class = new JTextField();
     textField_class.addFocusListener(new JTextFieldHintListener(textField_class, "班级编号"));
     menuBar.add(textField_class);
     textField_class.setColumns(10);
-    
+
     textField_teacher = new JTextField();
     textField_teacher.addFocusListener(new JTextFieldHintListener(textField_teacher, "教师编号"));
     menuBar.add(textField_teacher);
     textField_teacher.setColumns(10);
-    
+
     button = new JButton("查询");
     menuBar.add(button);
-    
+
     JScrollPane scrollPane = new JScrollPane();
     frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+  }
+
+  private JTable setTable(List<List<String>> tokens) {
+    DefaultTableModel model = getTable(tokens);
+    JTable table = new JTable(model);
+    table.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
+    DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 单元格渲染器
+    tcr.setHorizontalAlignment(JLabel.CENTER);// 居中显示
+    tcr.setVerticalAlignment(JLabel.CENTER);
+    table.setDefaultRenderer(Object.class, tcr);// 设置渲染器
+    table.setRowHeight(40);
+    table.setRowSelectionAllowed(false);
+    table.setCellSelectionEnabled(true);
+    return table;
+  }
+
+  public void resizeColumnWidth(JTable table) {
+    table.setRowSelectionAllowed(true);
+    table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    final TableColumnModel columnModel = table.getColumnModel();
+    for (int column = 0; column < table.getColumnCount(); column++) {
+      int width = 50; // Min width
+      for (int row = 0; row < table.getRowCount(); row++) {
+        TableCellRenderer renderer = table.getCellRenderer(row, column);
+        Component comp = table.prepareRenderer(renderer, row, column);
+        width = Math.max(comp.getPreferredSize().width + 1, width);
+      }
+      // if(width > 3000)
+      // width=300;
+      columnModel.getColumn(column).setPreferredWidth(width);
+    }
+  }
+
+
+  private DefaultTableModel getTable(List<List<String>> tokens) {
+    DefaultTableModel model = new DefaultTableModel() {
+      @Override
+      public boolean isCellEditable(int row, int column) {
+        // all cells false
+        return false;
+      }
+    };
+    Vector<String> header = new Vector<String>();
+    for (String string : tokens.get(0)) {
+      header.add(string);
+    }
+    Vector<Vector<String>> rows = new Vector<Vector<String>>();
+    for (int j = 1; j < tokens.size(); j++) {
+      Vector<String> row = new Vector<String>();
+      for (String string : tokens.get(j)) {
+        row.add(string);
+      }
+      rows.add(row);
+    }
+    model.setDataVector(rows, header);
+    return model;
   }
 
 }
