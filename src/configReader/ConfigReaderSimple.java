@@ -23,7 +23,7 @@ public class ConfigReaderSimple implements Configreader {
         String tmpConfig;
         configs = new HashMap<String, String>();
         while ((tmpConfig = ip.nextLine()) != null) {
-            if (!tmpConfig.startsWith("#")) {
+            if (!tmpConfig.startsWith("#") && tmpConfig.trim().length() != 0) {
                 String[] oneConfig = tmpConfig.split(" = ");
                 configs.put(oneConfig[0], oneConfig[1]);
             }
