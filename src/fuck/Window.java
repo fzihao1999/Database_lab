@@ -69,12 +69,12 @@ public class Window {
     JComboBox comboBox = new JComboBox();
     comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     menuBar.add(comboBox);
-    comboBox.addItem("各学年学生成绩");
-    comboBox.addItem("学生成绩查询");
-    comboBox.addItem("教师任课查询");
-    comboBox.addItem("班级课程开设查询");
-    comboBox.addItem("每门课程平均成绩查询");
-    comboBox.addItem("学生查询");
+    comboBox.addItem("学生成绩查询"); // 所有score的所有主键
+    comboBox.addItem("每门课程平均成绩查询"); // 按学期查询
+    comboBox.addItem("学生选课情况");  // 输出指定学生选课及学分
+    comboBox.addItem("学生学分统计");  //  输出学生已经获得学分
+    comboBox.addItem("教师任课查询");  // 指定教师的开课情况
+    comboBox.addItem("班级课程开设查询"); // 班级开课情况
     comboBox.addItem("添加、删除成绩");
     comboBox.addItem("修改成绩");
     comboBox.addItem("修改任课教师");
