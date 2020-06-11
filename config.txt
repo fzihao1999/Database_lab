@@ -1,6 +1,7 @@
 databasename = 201626810610MIS
 
 #scores table
+scores = [201626810610_scores]
 scores_studentid = _201626810610_studentid
 scores_semester = _201626810610_semester
 scores_courseid = _201626810610_courseid

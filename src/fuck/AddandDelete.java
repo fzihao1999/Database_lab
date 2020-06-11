@@ -6,13 +6,22 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import configReader.Configreader;
+import connector.Connector;
+
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
 
 public class AddandDelete {
 
   private JFrame frame;
-  private JTextField textField_songid;
-  private JTextField textField_disid;
+  private JTextField textField_courseid;
+  private JTextField textField_semester;
   private JTextField textField_studentid;
   private JTextField textField_teacher;
   private JTextField textField_score;
@@ -78,15 +87,15 @@ public class AddandDelete {
     label_6.setBounds(74, 210, 135, 26);
     frame.getContentPane().add(label_6);
     
-    textField_songid = new JTextField();
-    textField_songid.setColumns(10);
-    textField_songid.setBounds(201, 120, 103, 26);
-    frame.getContentPane().add(textField_songid);
+    textField_courseid = new JTextField();
+    textField_courseid.setColumns(10);
+    textField_courseid.setBounds(201, 120, 103, 26);
+    frame.getContentPane().add(textField_courseid);
     
-    textField_disid = new JTextField();
-    textField_disid.setColumns(10);
-    textField_disid.setBounds(201, 75, 103, 26);
-    frame.getContentPane().add(textField_disid);
+    textField_semester = new JTextField();
+    textField_semester.setColumns(10);
+    textField_semester.setBounds(201, 75, 103, 26);
+    frame.getContentPane().add(textField_semester);
     
     textField_studentid = new JTextField();
     textField_studentid.setColumns(10);
@@ -104,11 +113,61 @@ public class AddandDelete {
     frame.getContentPane().add(textField_score);
     
     JButton btnNewButton = new JButton("添加");
+    btnNewButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        try {
+          String studentid = textField_studentid.getText();
+          String semester = textField_semester.getText();
+          String courseid = textField_courseid.getText();
+          String teacherid = textField_teacher.getText();
+          String score = textField_score.getText();
+          Configreader reader = Configreader.reader("config.txt");
+          String tablename = reader.readItem("scores");
+          String sql = "insert into " + tablename + " values (" + studentid + "," + 
+              semester + "," + courseid + "," + score + "," + teacherid + ")";
+         
+          Connection conn = Connector.getConnection();
+          PreparedStatement psmt = conn.prepareStatement(sql);
+          psmt.executeUpdate();
+          textField.setText("Success!");
+        } catch (Exception exception) {
+          exception.printStackTrace();
+        }
+      }
+    });
     btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
     btnNewButton.setBounds(66, 267, 103, 52);
     frame.getContentPane().add(btnNewButton);
     
     JButton button = new JButton("删除\r\n");
+    button.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        try {
+          String studentid = textField_studentid.getText();
+          String semester = textField_semester.getText();
+          String courseid = textField_courseid.getText();
+          String teacherid = textField_teacher.getText();
+          Configreader reader = Configreader.reader("config.txt");
+          String tablename = reader.readItem("scores");
+          String scores_studentid = reader.readItem("scores_studentid");
+          String scores_semester = reader.readItem("scores_semester");
+          String scores_courseid = reader.readItem("scores_courseid");
+          String scores_teacherid = reader.readItem("scores_teacherid");
+          String sql = "delete from " + tablename + " where " + 
+              scores_studentid + "=" + studentid + " and " +
+              scores_semester + "=" + semester + " and " + 
+              scores_courseid + "=" + courseid + " and " + 
+              scores_teacherid + "=" + teacherid;
+          
+          Connection conn = Connector.getConnection();
+          PreparedStatement psmt = conn.prepareStatement(sql);
+          psmt.executeUpdate();
+          textField.setText("Success!");
+        } catch (Exception exception) {
+          exception.printStackTrace();
+        }
+      }
+    });
     button.setFont(new Font("微软雅黑", Font.PLAIN, 18));
     button.setBounds(211, 267, 103, 52);
     frame.getContentPane().add(button);

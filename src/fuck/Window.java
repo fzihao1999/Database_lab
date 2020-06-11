@@ -97,7 +97,7 @@ public class Window {
             textField_teacher.removeAll();  
             textField_teacher.addFocusListener(new JTextFieldHintListener(textField_teacher, "教师编号"));
             String[] fields = {txtTest_student.getText(), textField_course.getText(), textField_class.getText(), textField_teacher.getText()};
-            String[] commands = {reader.readItem("scores_studentid"), reader.readItem("scores_semester"), reader.readItem("scores_courseid"), reader.readItem("scores_teacherid")}
+            String[] commands = {reader.readItem("scores_studentid"), reader.readItem("scores_semester"), reader.readItem("scores_courseid"), reader.readItem("scores_teacherid")};
             boolean[] isVarchar = {false, true, false, false};
           }
         }
