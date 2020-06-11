@@ -58,6 +58,8 @@ public class Window {
    */
   private void initialize() {
     frame = new JFrame();
+    frame.setTitle("本科生教学管理系统");
+    frame.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     frame.setBounds(100, 100, 1280, 720);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
