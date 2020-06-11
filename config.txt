@@ -1,8 +1,31 @@
 databasename = 201626810610MIS
 
 #scores table
+scores = [201626810610_scores]
 scores_studentid = _201626810610_studentid
 scores_semester = _201626810610_semester
 scores_courseid = _201626810610_courseid
 scores_score = _201626810610_score
 scores_teacherid = _201626810610_teacherid
+score_avg = _201626810610_avescore
+score_coursename = _201626810610_name
+
+#credit procedure
+credit_id = _201626810610_id
+credit_name = _201626810610_studentName
+credit_coursename = _201626810610_courseName
+
+#courses table
+courses_teacherid = _201626810610_teacherid
+courses_semester = _201626810610_semester
+courses_credit = _201626810610_credit
+courses_name = _201626810610_name
+courses_id = _201626810610_id
+courses_period = _201626810610_period
+courses_type = _201626810610_type
+
+#student table 
+students_id = _201626810610_id
+students_name = _201626810610_name
+students_credit = _201626810610_credit
+students_major = _201626810610_major
