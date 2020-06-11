@@ -65,6 +65,7 @@ public class Window {
     frame.setJMenuBar(menuBar);
 
     JComboBox comboBox = new JComboBox();
+    comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     menuBar.add(comboBox);
     comboBox.addItem("学生成绩查询");
     comboBox.addItem("教师任课查询");
@@ -77,26 +78,31 @@ public class Window {
 
 
     txtTest_student = new JTextField();
+    txtTest_student.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     txtTest_student.addFocusListener(new JTextFieldHintListener(txtTest_student, "学号"));
     menuBar.add(txtTest_student);
     txtTest_student.setColumns(10);
 
     textField_course = new JTextField();
+    textField_course.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     textField_course.addFocusListener(new JTextFieldHintListener(textField_course, "课程编号"));
     menuBar.add(textField_course);
     textField_course.setColumns(10);
 
     textField_class = new JTextField();
+    textField_class.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     textField_class.addFocusListener(new JTextFieldHintListener(textField_class, "班级编号"));
     menuBar.add(textField_class);
     textField_class.setColumns(10);
 
     textField_teacher = new JTextField();
+    textField_teacher.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     textField_teacher.addFocusListener(new JTextFieldHintListener(textField_teacher, "教师编号"));
     menuBar.add(textField_teacher);
     textField_teacher.setColumns(10);
 
     button = new JButton("查询");
+    button.setFont(new Font("Microsoft JhengHei UI", Font.PLAIN, 18));
     menuBar.add(button);
 
     JScrollPane scrollPane = new JScrollPane();
