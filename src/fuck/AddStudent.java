@@ -8,19 +8,28 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import configReader.Configreader;
+import connector.Connector;
+
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+
 public class AddStudent {
 
   private JFrame frame;
-  private JTextField textField_songid;
-  private JTextField textField_disid;
-  private JTextField textField_studentid;
-  private JTextField textField_teacher;
-  private JTextField textField_score;
-  private JTextField textField_2;
+  private JTextField textField_age;
+  private JTextField textField_sex;
+  private JTextField textField_stuname;
+  private JTextField textField_adderss;
+  private JTextField textField_major;
+  private JTextField textField_time;
   private JLabel label_1;
   private JLabel label_2;
-  private JTextField textField_3;
-  private JTextField textField;
+  private JTextField textField_class;
+  private JTextField textField_id;
   private JTextField textField_1;
 
   /**
@@ -82,35 +91,35 @@ public class AddStudent {
     label_6.setBounds(101, 239, 135, 26);
     frame.getContentPane().add(label_6);
     
-    textField_songid = new JTextField();
-    textField_songid.setColumns(10);
-    textField_songid.setBounds(228, 149, 103, 26);
-    frame.getContentPane().add(textField_songid);
+    textField_age = new JTextField();
+    textField_age.setColumns(10);
+    textField_age.setBounds(228, 149, 103, 26);
+    frame.getContentPane().add(textField_age);
     
-    textField_disid = new JTextField();
-    textField_disid.setColumns(10);
-    textField_disid.setBounds(228, 104, 103, 26);
-    frame.getContentPane().add(textField_disid);
+    textField_sex = new JTextField();
+    textField_sex.setColumns(10);
+    textField_sex.setBounds(228, 104, 103, 26);
+    frame.getContentPane().add(textField_sex);
     
-    textField_studentid = new JTextField();
-    textField_studentid.setColumns(10);
-    textField_studentid.setBounds(228, 59, 103, 26);
-    frame.getContentPane().add(textField_studentid);
+    textField_stuname = new JTextField();
+    textField_stuname.setColumns(10);
+    textField_stuname.setBounds(228, 59, 103, 26);
+    frame.getContentPane().add(textField_stuname);
     
-    textField_teacher = new JTextField();
-    textField_teacher.setColumns(10);
-    textField_teacher.setBounds(228, 194, 103, 26);
-    frame.getContentPane().add(textField_teacher);
+    textField_adderss = new JTextField();
+    textField_adderss.setColumns(10);
+    textField_adderss.setBounds(228, 194, 103, 26);
+    frame.getContentPane().add(textField_adderss);
     
-    textField_score = new JTextField();
-    textField_score.setColumns(10);
-    textField_score.setBounds(228, 239, 103, 26);
-    frame.getContentPane().add(textField_score);
+    textField_major = new JTextField();
+    textField_major.setColumns(10);
+    textField_major.setBounds(228, 239, 103, 26);
+    frame.getContentPane().add(textField_major);
     
-    textField_2 = new JTextField();
-    textField_2.setColumns(10);
-    textField_2.setBounds(228, 329, 103, 26);
-    frame.getContentPane().add(textField_2);
+    textField_time = new JTextField();
+    textField_time.setColumns(10);
+    textField_time.setBounds(228, 329, 103, 26);
+    frame.getContentPane().add(textField_time);
     
     label_1 = new JLabel("入学时间：");
     label_1.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -122,12 +131,36 @@ public class AddStudent {
     label_2.setBounds(101, 284, 135, 26);
     frame.getContentPane().add(label_2);
     
-    textField_3 = new JTextField();
-    textField_3.setColumns(10);
-    textField_3.setBounds(228, 284, 103, 26);
-    frame.getContentPane().add(textField_3);
+    textField_class = new JTextField();
+    textField_class.setColumns(10);
+    textField_class.setBounds(228, 284, 103, 26);
+    frame.getContentPane().add(textField_class);
     
     JButton btnNewButton = new JButton("添加");
+    btnNewButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        try {
+        String name = textField_stuname.getText();
+        String sex = textField_sex.getText();
+        String age = textField_age.getText();
+        String address = textField_adderss.getText();
+        String major = textField_major.getText();
+        String classid = textField_class.getText();
+        String time = textField_time.getText();
+        Configreader reader = Configreader.reader("config.txt");
+        String tablename = reader.readItem("students");
+        String sql = "insert into " + tablename + " values ('" + name + "','" + sex + "'," + age +
+            ",'" + address + "',0,'" + major + "'," + classid + ",'" + time + "')";
+        
+        Connection conn = Connector.getConnection();
+        PreparedStatement psmt = conn.prepareStatement(sql);
+        psmt.executeUpdate();
+        textField_1.setText("Success!");
+        } catch (Exception exception) {
+          exception.printStackTrace();
+        }
+      }
+    });
     btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
     btnNewButton.setBounds(411, 164, 83, 84);
     frame.getContentPane().add(btnNewButton);
@@ -137,10 +170,10 @@ public class AddStudent {
     label.setBounds(101, 406, 135, 26);
     frame.getContentPane().add(label);
     
-    textField = new JTextField();
-    textField.setColumns(10);
-    textField.setBounds(228, 406, 103, 26);
-    frame.getContentPane().add(textField);
+    textField_id = new JTextField();
+    textField_id.setColumns(10);
+    textField_id.setBounds(228, 406, 103, 26);
+    frame.getContentPane().add(textField_id);
     
     JLabel label_4 = new JLabel("添加学生：");
     label_4.setFont(new Font("微软雅黑", Font.PLAIN, 18));
@@ -153,6 +186,31 @@ public class AddStudent {
     frame.getContentPane().add(label_7);
     
     JButton button = new JButton("删除");
+    button.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        try {
+          String studentid = textField_id.getText();
+          Configreader reader = Configreader.reader("config.txt");
+          String tablename = reader.readItem("students");
+          String table_id = reader.readItem("students_id");
+          String sql = "delete from " + tablename + " where " + table_id + " = " + studentid;
+          String sql_check = "select * from " + tablename + " where " + table_id + " = " + studentid;
+          
+          Connection conn = Connector.getConnection();
+          PreparedStatement psmt_check = conn.prepareStatement(sql_check);
+          ResultSet rs = psmt_check.executeQuery();
+          if(rs.next()) {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.executeUpdate();
+            textField_1.setText("Success!");
+          } else {
+            textField_1.setText("We don't have this student");
+          }
+        } catch (Exception exception) {
+          exception.printStackTrace();
+        }
+      }
+    });
     button.setFont(new Font("微软雅黑", Font.PLAIN, 18));
     button.setBounds(411, 393, 83, 51);
     frame.getContentPane().add(button);
