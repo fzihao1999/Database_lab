@@ -37,3 +37,9 @@ classcourse_classid = _201626810610_classid
 classcourse_courseid = _201626810610_courseid
 classcourse_semester = _201626810610_semester
 classcourse_teacherid = _201626810610_teacherid
+
+#teachers table
+teachers = [201626810610_teachers]
+teachers_id = _201626810610_id
+teachers_position = _201626810610_position
+teachers_tel = _201626810610_tel
