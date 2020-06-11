@@ -1,1 +1,8 @@
 databasename = 201626810610MIS
+
+#scores table
+scores_studentid = _201626810610_studentid
+scores_semester = _201626810610_semester
+scores_courseid = _201626810610_courseid
+scores_score = _201626810610_score
+scores_teacherid = _201626810610_teacherid

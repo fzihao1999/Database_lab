@@ -16,7 +16,6 @@ public class Connector {
                   + "database="+ reader.readItem("databasename")+";"
                   + "integratedSecurity=true;"
                   + "loginTimeout=5;";
-
       conn = DriverManager.getConnection(connectionUrl);
     } catch(Exception e) {
       e.printStackTrace();

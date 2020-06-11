@@ -19,7 +19,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import configReader.Configreader;
 import javax.swing.JButton;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class Window {
 
@@ -57,6 +60,7 @@ public class Window {
    * Initialize the contents of the frame.
    */
   private void initialize() {
+    Configreader reader = Configreader.reader("config.txt");
     frame = new JFrame();
     frame.setTitle("本科生教学管理系统");
     frame.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
@@ -78,7 +82,27 @@ public class Window {
     comboBox.addItem("添加、删除成绩");
     comboBox.addItem("修改成绩");
     comboBox.addItem("修改任课教师");
+    
 
+    comboBox.addItemListener(new ItemListener() {
+      public void itemStateChanged(ItemEvent arg0) {
+        if(arg0.getStateChange() == ItemEvent.SELECTED){ 
+          if(comboBox.getSelectedIndex() == 0) {
+            txtTest_student.removeAll();  
+            txtTest_student.addFocusListener(new JTextFieldHintListener(txtTest_student, "学号"));
+            textField_course.removeAll();  
+            textField_course.addFocusListener(new JTextFieldHintListener(textField_course, "学期"));
+            textField_class.removeAll();  
+            textField_class.addFocusListener(new JTextFieldHintListener(textField_class, "课程编号"));
+            textField_teacher.removeAll();  
+            textField_teacher.addFocusListener(new JTextFieldHintListener(textField_teacher, "教师编号"));
+            String[] fields = {txtTest_student.getText(), textField_course.getText(), textField_class.getText(), textField_teacher.getText()};
+            String[] commands = {reader.readItem("scores_studentid"), reader.readItem("scores_semester"), reader.readItem("scores_courseid"), reader.readItem("scores_teacherid")}
+            //boolean[] 
+          }
+        }
+      }
+    });
 
     txtTest_student = new JTextField();
     txtTest_student.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
@@ -88,13 +112,13 @@ public class Window {
 
     textField_course = new JTextField();
     textField_course.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
-    textField_course.addFocusListener(new JTextFieldHintListener(textField_course, "课程编号"));
+    textField_course.addFocusListener(new JTextFieldHintListener(textField_course, "学期"));
     menuBar.add(textField_course);
     textField_course.setColumns(10);
 
     textField_class = new JTextField();
     textField_class.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
-    textField_class.addFocusListener(new JTextFieldHintListener(textField_class, "班级编号"));
+    textField_class.addFocusListener(new JTextFieldHintListener(textField_class, "课程编号"));
     menuBar.add(textField_class);
     textField_class.setColumns(10);
 
@@ -166,6 +190,27 @@ public class Window {
     }
     model.setDataVector(rows, header);
     return model;
+  }
+  
+  private String add(boolean flag) {
+    if(flag) return "and ";
+    else return "where ";
+  }
+  
+  private String getSql(String sql, String[] fields, String[] commands, boolean[] isVarchar) {
+    boolean flag = false;
+    int len = fields.length;
+    for(int i = 0; i < len; i++) {
+      if(!fields.equals("")) {
+        sql += add(flag);
+        if(!isVarchar[i])
+          sql += commands[i] + " \"" + fields[i]+ "\" ";
+        else {
+          sql += commands[i] + " " + fields[i]+ " ";
+        }
+      }
+    }
+    return sql;
   }
 
 }
