@@ -25,7 +25,15 @@ courses_period = _201626810610_period
 courses_type = _201626810610_type
 
 #student table 
+students = [201626810610_students]
 students_id = _201626810610_id
 students_name = _201626810610_name
 students_credit = _201626810610_credit
 students_major = _201626810610_major
+
+#classcourse table
+classcourse = [201626810610_classcourse]
+classcourse_classid = _201626810610_classid
+classcourse_courseid = _201626810610_courseid
+classcourse_semester = _201626810610_semester
+classcourse_teacherid = _201626810610_teacherid
