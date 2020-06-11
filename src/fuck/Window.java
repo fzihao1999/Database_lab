@@ -101,30 +101,8 @@ public class Window {
     comboBox.addItem("修改成绩");
     comboBox.addItem("修改任课教师");
 
-<<<<<<< HEAD
     JScrollPane scrollPane = new JScrollPane();
     frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
-=======
-    comboBox.addItemListener(new ItemListener() {
-      public void itemStateChanged(ItemEvent arg0) {
-        if(arg0.getStateChange() == ItemEvent.SELECTED){ 
-          if(comboBox.getSelectedIndex() == 0) {
-            txtTest_student.removeAll();  
-            txtTest_student.addFocusListener(new JTextFieldHintListener(txtTest_student, "学号"));
-            textField_course.removeAll();  
-            textField_course.addFocusListener(new JTextFieldHintListener(textField_course, "学期"));
-            textField_class.removeAll();  
-            textField_class.addFocusListener(new JTextFieldHintListener(textField_class, "课程编号"));
-            textField_teacher.removeAll();  
-            textField_teacher.addFocusListener(new JTextFieldHintListener(textField_teacher, "教师编号"));
-            String[] fields = {txtTest_student.getText(), textField_course.getText(), textField_class.getText(), textField_teacher.getText()};
-            String[] commands = {reader.readItem("scores_studentid"), reader.readItem("scores_semester"), reader.readItem("scores_courseid"), reader.readItem("scores_teacherid")};
-            boolean[] isVarchar = {false, true, false, false};
-          }
-        }
-      }
-    });
->>>>>>> 7a683486c2df35f2cdce0e8a1196d882d36408f2
 
     txtTest_student = new JTextField();
     txtTest_student.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
