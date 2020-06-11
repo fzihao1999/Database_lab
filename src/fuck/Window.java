@@ -69,6 +69,7 @@ public class Window {
     JComboBox comboBox = new JComboBox();
     comboBox.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 18));
     menuBar.add(comboBox);
+    comboBox.addItem("各学年学生成绩");
     comboBox.addItem("学生成绩查询");
     comboBox.addItem("教师任课查询");
     comboBox.addItem("班级课程开设查询");
