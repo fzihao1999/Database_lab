@@ -4,9 +4,6 @@ import java.sql.DriverManager;
 import configReader.Configreader;
 
 public class Connector {
-  private static final String URL = "jdbc:mysql://localhost:3306/demo?serverTimezone=UTC";
-  private static final String NAME = "root";
-  private static final String PASSWORD = "Under3lily*o";
   private static Connection conn = null;
   static {
     try {
