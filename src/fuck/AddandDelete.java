@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class AddandDelete {
@@ -123,13 +124,28 @@ public class AddandDelete {
           String score = textField_score.getText();
           Configreader reader = Configreader.reader("config.txt");
           String tablename = reader.readItem("scores");
+          String scores_studentid = reader.readItem("scores_studentid");
+          String scores_semester = reader.readItem("scores_semester");
+          String scores_courseid = reader.readItem("scores_courseid");
+          String scores_teacherid = reader.readItem("scores_teacherid");
           String sql = "insert into " + tablename + " values (" + studentid + "," + 
               semester + "," + courseid + "," + score + "," + teacherid + ")";
+          String check_sql = "select * from " + tablename + " where " + 
+              scores_studentid + "=" + studentid + " and " +
+              scores_semester + "=" + semester + " and " + 
+              scores_courseid + "=" + courseid + " and " + 
+              scores_teacherid + "=" + teacherid;
          
           Connection conn = Connector.getConnection();
-          PreparedStatement psmt = conn.prepareStatement(sql);
-          psmt.executeUpdate();
-          textField.setText("Success!");
+          PreparedStatement psmt_check = conn.prepareStatement(check_sql);
+          ResultSet rs = psmt_check.executeQuery();
+          if(rs.next()) {
+            textField.setText("The score is exist");
+          } else {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.executeUpdate();
+            textField.setText("Success!");
+          }
         } catch (Exception exception) {
           exception.printStackTrace();
         }
@@ -158,11 +174,22 @@ public class AddandDelete {
               scores_semester + "=" + semester + " and " + 
               scores_courseid + "=" + courseid + " and " + 
               scores_teacherid + "=" + teacherid;
+          String check_sql = "select * from " + tablename + " where " + 
+              scores_studentid + "=" + studentid + " and " +
+              scores_semester + "=" + semester + " and " + 
+              scores_courseid + "=" + courseid + " and " + 
+              scores_teacherid + "=" + teacherid;
           
           Connection conn = Connector.getConnection();
-          PreparedStatement psmt = conn.prepareStatement(sql);
-          psmt.executeUpdate();
-          textField.setText("Success!");
+          PreparedStatement psmt_check = conn.prepareStatement(check_sql);
+          ResultSet rs = psmt_check.executeQuery();
+          if(rs.next()) {
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.executeUpdate();
+            textField.setText("Success!");
+          } else {
+            textField.setText("The score is not exist");
+          }
         } catch (Exception exception) {
           exception.printStackTrace();
         }
