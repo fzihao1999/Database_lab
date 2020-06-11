@@ -52,7 +52,7 @@ public class Change_Score {
     frame.setBounds(100, 100, 429, 421);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.getContentPane().setLayout(null);
-    frame.setTitle("修改任课教师");
+    frame.setTitle("修改成绩");
     
     textField = new JTextField();
     textField.setBounds(200, 40, 108, 32);
