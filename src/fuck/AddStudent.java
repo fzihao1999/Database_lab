@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 
 public class AddStudent {
 
-  private JFrame frame;
+  public JFrame frame;
   private JTextField textField_age;
   private JTextField textField_sex;
   private JTextField textField_stuname;
@@ -62,7 +62,7 @@ public class AddStudent {
     frame = new JFrame();
     frame.getContentPane().setFont(new Font("Dialog", Font.PLAIN, 18));
     frame.setBounds(100, 100, 570, 600);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.getContentPane().setLayout(null);
     frame.setTitle("添加学生");
     

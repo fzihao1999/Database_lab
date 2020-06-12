@@ -99,7 +99,8 @@ public class Window {
     comboBox.addItem("班级课程开设查询"); // 班级开课情况
     comboBox.addItem("添加、删除成绩");
     comboBox.addItem("修改成绩");
-    comboBox.addItem("修改任课教师");
+    comboBox.addItem("修改教师信息");
+    comboBox.addItem("添加、删除学生");
 
     JScrollPane scrollPane = new JScrollPane();
     frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -137,6 +138,7 @@ public class Window {
       public void itemStateChanged(ItemEvent arg0) {
         if(arg0.getStateChange() == ItemEvent.SELECTED){ 
           if(comboBox.getSelectedIndex() == 0) {
+            button.setText("查询");
             txtTest_student.setEditable(true);  
             textField_course.setEditable(true);  
             textField_class.setEditable(true);  
@@ -155,6 +157,7 @@ public class Window {
             textField_class.addFocusListener(course);
             textField_teacher.addFocusListener(teacher);
           }else if (comboBox.getSelectedIndex() == 1) {
+            button.setText("查询");
             txtTest_student.setEditable(false);  
             textField_course.setEditable(false);  
             textField_class.setEditable(false);  
@@ -164,6 +167,7 @@ public class Window {
             textField_class.removeFocusListener(course);  
             textField_teacher.removeFocusListener(teacher); 
           }else if (comboBox.getSelectedIndex() == 2) {
+            button.setText("查询");
             txtTest_student.setEditable(true);  
             textField_course.setEditable(false);  
             textField_class.setEditable(false);  
@@ -176,6 +180,7 @@ public class Window {
             id = new JTextFieldHintListener(txtTest_student, "学号");
             txtTest_student.addFocusListener(id);
           }else if (comboBox.getSelectedIndex() == 3) {
+            button.setText("查询");
             txtTest_student.setEditable(false);  
             textField_course.setEditable(false);  
             textField_class.setEditable(false);  
@@ -185,6 +190,7 @@ public class Window {
             textField_class.removeFocusListener(course);  
             textField_teacher.removeFocusListener(teacher);
           }else if (comboBox.getSelectedIndex() == 4) {
+            button.setText("查询");
             txtTest_student.setEditable(false);  
             textField_course.setEditable(false);  
             textField_class.setEditable(false);  
@@ -196,6 +202,7 @@ public class Window {
             teacher = new JTextFieldHintListener(textField_teacher, "教师编号");
             textField_teacher.addFocusListener(teacher); 
           }else if (comboBox.getSelectedIndex() == 5) {
+            button.setText("查询");
             txtTest_student.setEditable(true);  
             textField_course.setEditable(false);  
             textField_class.setEditable(false);  
@@ -206,6 +213,16 @@ public class Window {
             textField_teacher.removeFocusListener(teacher);  
             id = new JTextFieldHintListener(txtTest_student, "班级编号");
             txtTest_student.addFocusListener(id);
+          }else{
+            button.setText("修改");
+            txtTest_student.setEditable(false);  
+            textField_course.setEditable(false);  
+            textField_class.setEditable(false);  
+            textField_teacher.setEditable(false);  
+            txtTest_student.removeFocusListener(id);  
+            textField_course.removeFocusListener(sem);  
+            textField_class.removeFocusListener(course);  
+            textField_teacher.removeFocusListener(teacher);
           }
         }
       }
@@ -248,24 +265,54 @@ public class Window {
           sql = "exec Get_classCourse " + txtTest_student.getText();
           head = Arrays.asList("序号", "课程编号", "课程名", "学期", "教师编号", "是否为选修课", "学分");
           header = Arrays.asList(reader.readItem("courses_id"), reader.readItem("courses_name"), reader.readItem("courses_semester"), reader.readItem("courses_teacherid"), reader.readItem("courses_type"), reader.readItem("courses_credit"));
-        }  
-        try {
-          System.out.println(sql);
-          Connection con = Connector.getConnection();
-          PreparedStatement psmt = con.prepareStatement(sql);
-          ResultSet rs = psmt.executeQuery();
-          List<List<String>> sample = new ArrayList<>();
-          sample.add(head);
-          while(rs.next()) {
-            List<String> row = new ArrayList<String>();
-            for(String h: header) {
-              row.add(rs.getString(h));
-            }
-            sample.add(row);
+        }else if(comboBox.getSelectedIndex() == 6) {
+          try {
+            AddandDelete window = new AddandDelete();
+            window.frame.setVisible(true);
+          } catch (Exception e) {
+            e.printStackTrace();
           }
-          scrollPane.setViewportView(setTable(sample));
-        } catch (SQLException e1) {
-          e1.printStackTrace();
+        }else if(comboBox.getSelectedIndex() == 7) {
+          try {
+            Change_Score window = new Change_Score();
+            window.frame.setVisible(true);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }else if(comboBox.getSelectedIndex() == 8) {
+          try {
+            Change_Teacher window = new Change_Teacher();
+            window.frame.setVisible(true);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }else if(comboBox.getSelectedIndex() == 9) {
+          try {
+            AddStudent window = new AddStudent();
+            window.frame.setVisible(true);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+        if(comboBox.getSelectedIndex() <= 5) {
+          try {
+            System.out.println(sql);
+            Connection con = Connector.getConnection();
+            PreparedStatement psmt = con.prepareStatement(sql);
+            ResultSet rs = psmt.executeQuery();
+            List<List<String>> sample = new ArrayList<>();
+            sample.add(head);
+            while(rs.next()) {
+              List<String> row = new ArrayList<String>();
+              for(String h: header) {
+                row.add(rs.getString(h));
+              }
+              sample.add(row);
+            }
+            scrollPane.setViewportView(setTable(sample));
+          } catch (SQLException e1) {
+            e1.printStackTrace();
+          }
         }
       }
     });

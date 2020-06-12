@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 
 public class Change_Teacher {
 
-  private JFrame frame;
+  public JFrame frame;
   private JTextField textField_id;
   private JTextField textField_position;
   private JTextField textField_tel;
@@ -54,7 +54,7 @@ public class Change_Teacher {
   private void initialize() {
     frame = new JFrame();
     frame.setBounds(100, 100, 429, 347);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.getContentPane().setLayout(null);
     frame.setTitle("修改教师信息");
     

@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 
 public class AddandDelete {
 
-  private JFrame frame;
+  public JFrame frame;
   private JTextField textField_courseid;
   private JTextField textField_semester;
   private JTextField textField_studentid;
@@ -59,7 +59,7 @@ public class AddandDelete {
     frame = new JFrame();
     frame.getContentPane().setFont(new Font("Dialog", Font.PLAIN, 18));
     frame.setBounds(100, 100, 408, 495);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.getContentPane().setLayout(null);
     frame.setTitle("添加与删除成绩");
     

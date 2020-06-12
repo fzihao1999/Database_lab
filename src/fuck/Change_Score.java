@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 
 public class Change_Score {
 
-  private JFrame frame;
+  public JFrame frame;
   private JTextField textField_studentid;
   private JTextField textField_semester;
   private JTextField textField_courseid;
@@ -60,7 +60,7 @@ public class Change_Score {
   private void initialize() {
     frame = new JFrame();
     frame.setBounds(100, 100, 429, 421);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.getContentPane().setLayout(null);
     frame.setTitle("修改成绩");
     
