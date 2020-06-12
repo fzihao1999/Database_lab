@@ -391,7 +391,7 @@ public class Window {
         sql += add(flag);
         flag = true;
         if(isVarchar[i])
-          sql += commands[i] + "= \"" + fields[i]+ "\" ";
+          sql += commands[i] + "= '" + fields[i]+ "' ";
         else {
           sql += commands[i] + "= " + fields[i]+ " ";
         }
