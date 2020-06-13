@@ -128,13 +128,20 @@ public class AddandDelete {
           String scores_semester = reader.readItem("scores_semester");
           String scores_courseid = reader.readItem("scores_courseid");
           String scores_teacherid = reader.readItem("scores_teacherid");
-          String sql = "insert into " + tablename + " values (" + studentid + "," + 
-              semester + "," + courseid + "," + score + "," + teacherid + ")";
+          String course_table = reader.readItem("courses");
+          String course_id = reader.readItem("courses_id");
+          String sql = "insert into " + tablename + " values (" + studentid + ",'" + 
+              semester + "'," + courseid + "," + score + "," + teacherid + ")";
           String check_sql = "select * from " + tablename + " where " + 
               scores_studentid + "=" + studentid + " and " +
-              scores_semester + "=" + semester + " and " + 
+              scores_semester + "='" + semester + "' and " + 
               scores_courseid + "=" + courseid + " and " + 
               scores_teacherid + "=" + teacherid;
+          String check_course = "select * from " + course_table + " where " +
+              scores_semester + "='" + semester + "' and " + 
+              course_id + "=" + courseid + " and " + 
+              scores_teacherid + "=" + teacherid;
+          
          
           Connection conn = Connector.getConnection();
           PreparedStatement psmt_check = conn.prepareStatement(check_sql);
@@ -142,9 +149,15 @@ public class AddandDelete {
           if(rs.next()) {
             textField.setText("The score is exist");
           } else {
-            PreparedStatement psmt = conn.prepareStatement(sql);
-            psmt.executeUpdate();
-            textField.setText("Success!");
+            PreparedStatement psmt_check1 = conn.prepareStatement(check_course);
+            ResultSet rs1 = psmt_check1.executeQuery();
+            if(rs1.next()) {
+              PreparedStatement psmt = conn.prepareStatement(sql);
+              psmt.executeUpdate();
+              textField.setText("Success!");
+            } else {
+              textField.setText("The course isn't exist");
+            }
           }
         } catch (Exception exception) {
           exception.printStackTrace();
@@ -171,12 +184,12 @@ public class AddandDelete {
           String scores_teacherid = reader.readItem("scores_teacherid");
           String sql = "delete from " + tablename + " where " + 
               scores_studentid + "=" + studentid + " and " +
-              scores_semester + "=" + semester + " and " + 
+              scores_semester + "='" + semester + "' and " + 
               scores_courseid + "=" + courseid + " and " + 
               scores_teacherid + "=" + teacherid;
           String check_sql = "select * from " + tablename + " where " + 
               scores_studentid + "=" + studentid + " and " +
-              scores_semester + "=" + semester + " and " + 
+              scores_semester + "='" + semester + "' and " + 
               scores_courseid + "=" + courseid + " and " + 
               scores_teacherid + "=" + teacherid;
           

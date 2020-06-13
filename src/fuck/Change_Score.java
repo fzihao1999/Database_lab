@@ -132,12 +132,12 @@ public class Change_Score {
           String scores_score = reader.readItem("scores_score");
           String sql = "update " + tablename + " set " + scores_score + "=" + score + " where " + 
               scores_studentid + "=" + studentid + " and " +
-              scores_semester + "=" + semester + " and " + 
+              scores_semester + "='" + semester + "' and " + 
               scores_courseid + "=" + courseid + " and " + 
               scores_teacherid + "=" + teacherid;
           String check_sql = "select * from " + tablename + " where " + 
               scores_studentid + "=" + studentid + " and " +
-              scores_semester + "=" + semester + " and " + 
+              scores_semester + "='" + semester + "' and " + 
               scores_courseid + "=" + courseid + " and " + 
               scores_teacherid + "=" + teacherid;
           

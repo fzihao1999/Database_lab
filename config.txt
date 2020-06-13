@@ -16,6 +16,7 @@ credit_name = _201626810610_studentName
 credit_coursename = _201626810610_courseName
 
 #courses table
+courses = [201626810610_courses]
 courses_teacherid = _201626810610_teacherid
 courses_semester = _201626810610_semester
 courses_credit = _201626810610_credit
