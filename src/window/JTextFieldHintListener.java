@@ -1,4 +1,4 @@
-package fuck;
+package window;
 
 import java.awt.Color;
 import java.awt.event.FocusEvent;
